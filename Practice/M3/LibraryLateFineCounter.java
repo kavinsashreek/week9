@@ -1,0 +1,6 @@
+import java.util.Scanner;
+abstract class LibraryItem {String title;int days;LibraryItem(String t,int d){title=t;days=d;}abstract double fine();}
+class BookItem extends LibraryItem {BookItem(String t,int d){super(t,d);}double fine(){return Math.max(0,days)*2.0;}}
+class DVDItem extends LibraryItem {DVDItem(String t,int d){super(t,d);}double fine(){return Math.min(50,Math.max(0,days)*5.0);}}
+class MagazineItem extends LibraryItem {MagazineItem(String t,int d){super(t,d);}double fine(){return Math.max(0,days);}}
+public class LibraryLateFineCounter {public static void main(String[] args){Scanner s=new Scanner(System.in);int n=s.nextInt();double total=0;for(int i=0;i<n;i++){String t=s.next().toUpperCase(),title=s.next();int d=s.nextInt();LibraryItem item;switch(t){case "BOOK":item=new BookItem(title,d);break;case "DVD":item=new DVDItem(title,d);break;case "MAGAZINE":item=new MagazineItem(title,d);break;default:throw new IllegalArgumentException("Unknown item type: "+t);}double f=item.fine();System.out.printf("%s: %.2f%n",title,f);total+=f;}System.out.printf("Total Fines: %.2f%n",total);s.close();}}
