@@ -1,0 +1,6 @@
+import java.util.Scanner;
+abstract class TravelBooking {double distance;private static final double BOOKING_FEE=50;TravelBooking(double d){distance=d;}abstract double baseFare();double totalFare(){return baseFare()+BOOKING_FEE;}}
+class BusBooking extends TravelBooking {BusBooking(double d){super(d);}double baseFare(){return 2*distance;}}
+class TrainBooking extends TravelBooking {TrainBooking(double d){super(d);}double baseFare(){return 1.5*distance;}}
+class FlightBooking extends TravelBooking {FlightBooking(double d){super(d);}double baseFare(){return 2500+4*distance;}}
+public class TravelBookingCommonFee {public static void main(String[] args){Scanner s=new Scanner(System.in);int n=s.nextInt();for(int i=0;i<n;i++){String t=s.next().toUpperCase();double d=s.nextDouble();TravelBooking b;switch(t){case "BUS":b=new BusBooking(d);break;case "TRAIN":b=new TrainBooking(d);break;case "FLIGHT":b=new FlightBooking(d);break;default:throw new IllegalArgumentException("Unknown mode: "+t);}System.out.printf("%s: %.2f%n",t,b.totalFare());}s.close();}}
