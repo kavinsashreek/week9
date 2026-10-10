@@ -1,0 +1,6 @@
+import java.util.Scanner;
+abstract class Staff { String name; Staff(String n){name=n;} abstract double pay(); }
+class FullTimeStaff extends Staff { double salary; FullTimeStaff(String n,double v){super(n);salary=v;} double pay(){return salary;} }
+class HourlyStaff extends Staff { double hours,rate; HourlyStaff(String n,double h,double r){super(n);hours=h;rate=r;} double pay(){return Math.min(hours,40)*rate+Math.max(0,hours-40)*rate*1.5;} }
+class InternStaff extends Staff { double stipend; InternStaff(String n,double v){super(n);stipend=v;} double pay(){return stipend;} }
+public class WeeklyStaffPay { public static void main(String[] args){Scanner s=new Scanner(System.in);int n=s.nextInt();double total=0;for(int i=0;i<n;i++){String t=s.next().toUpperCase(),name=s.next();Staff p;switch(t){case "FULLTIME":p=new FullTimeStaff(name,s.nextDouble());break;case "HOURLY":p=new HourlyStaff(name,s.nextDouble(),s.nextDouble());break;case "INTERN":p=new InternStaff(name,s.nextDouble());break;default:throw new IllegalArgumentException("Unknown staff type: "+t);}double v=p.pay();System.out.printf("%s: %.2f%n",name,v);total+=v;}System.out.printf("Total Payroll: %.2f%n",total);s.close();}}
