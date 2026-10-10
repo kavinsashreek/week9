@@ -1,0 +1,6 @@
+import java.util.Scanner;
+abstract class Plot { String owner; Plot(String o){owner=o;} abstract double area(); abstract String shape(); }
+class CirclePlot extends Plot { double r; CirclePlot(String o,double r){super(o);this.r=r;} double area(){return Math.PI*r*r;} String shape(){return "CIRCLE";} }
+class RectanglePlot extends Plot { double l,w; RectanglePlot(String o,double l,double w){super(o);this.l=l;this.w=w;} double area(){return l*w;} String shape(){return "RECTANGLE";} }
+class TrianglePlot extends Plot { double b,h; TrianglePlot(String o,double b,double h){super(o);this.b=b;this.h=h;} double area(){return 0.5*b*h;} String shape(){return "TRIANGLE";} }
+public class GardenPlotAreaReport { public static void main(String[] args){ Scanner s=new Scanner(System.in); int n=s.nextInt(); double total=0; for(int i=0;i<n;i++){String t=s.next().toUpperCase(), owner=s.next(); Plot p; switch(t){case "CIRCLE":p=new CirclePlot(owner,s.nextDouble());break;case "RECTANGLE":p=new RectanglePlot(owner,s.nextDouble(),s.nextDouble());break;case "TRIANGLE":p=new TrianglePlot(owner,s.nextDouble(),s.nextDouble());break;default:throw new IllegalArgumentException("Unknown shape: "+t);} double a=p.area();System.out.printf("%s (%s): %.2f%n",p.owner,p.shape(),a);total+=a;}System.out.printf("Total Area: %.2f%n",total);s.close();} }
