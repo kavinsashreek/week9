@@ -1,0 +1,6 @@
+import java.util.Scanner;
+abstract class Connection {double units;Connection(double u){units=u;}abstract double bill();}
+class HomeConnection extends Connection {HomeConnection(double u){super(u);}double bill(){return Math.min(units,100)*5+Math.max(0,units-100)*7;}}
+class ShopConnection extends Connection {ShopConnection(double u){super(u);}double bill(){return units*8+100;}}
+class FactoryConnection extends Connection {FactoryConnection(double u){super(u);}double bill(){return Math.max(1000,units*6);}}
+public class ElectricityConnectionBilling {public static void main(String[] args){Scanner s=new Scanner(System.in);int n=s.nextInt();double total=0;for(int i=0;i<n;i++){String t=s.next().toUpperCase();double u=s.nextDouble();Connection c;switch(t){case "HOME":c=new HomeConnection(u);break;case "SHOP":c=new ShopConnection(u);break;case "FACTORY":c=new FactoryConnection(u);break;default:throw new IllegalArgumentException("Unknown type: "+t);}double b=c.bill();System.out.printf("%s: %.2f%n",t,b);total+=b;}System.out.printf("Total: %.2f%n",total);s.close();}}
